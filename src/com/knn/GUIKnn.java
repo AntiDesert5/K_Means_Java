@@ -19,12 +19,12 @@ public class GUIKnn {
         correrButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                KNN knn = new KNN();
-                objectKNN.setN((int)spinner1.getValue());
+
+                objectKNN.setK((int)spinner1.getValue());
                 //set Clases
                 objectKNN.setNcolores((int)spinner2.getValue());
                 //Agregamos N pares ordenados con un array de objetos.
-                knn.GenerarClusters();
+                objectKNN.GenerarClusters();
                 dibujarClases();
             }
         });

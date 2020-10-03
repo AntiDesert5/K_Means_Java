@@ -35,8 +35,16 @@ public class Coordenadas {
         this.c = c;
     }
 
+    /*public float getDistance() {
+        return distance ;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
+    }*/
+
     public float getDistance() {
-        return distance;
+        return distance ;
     }
 
     public void setDistance(float distance) {

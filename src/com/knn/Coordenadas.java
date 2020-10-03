@@ -43,4 +43,13 @@ public class Coordenadas {
         this.distance = distance;
     }
 
+    @Override
+    public String toString() {
+        return "Coordenadas{" +
+                "x=" + x +
+                ", y=" + y +
+                ", c=" + c +
+                ", distance=" + distance +
+                '}';
+    }
 }

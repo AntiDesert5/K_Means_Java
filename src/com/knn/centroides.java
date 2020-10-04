@@ -3,6 +3,8 @@ package com.knn;
 public class centroides {
     private int x,y;
 
+
+
     public int getX() {
         return x;
     }
@@ -22,6 +24,7 @@ public class centroides {
     public centroides(int x, int y) {
         this.x = x;
         this.y = y;
+
     }
 
     @Override

@@ -6,7 +6,7 @@ import java.util.Random;
 public class KNN {
     ArrayList<Float> instances = new ArrayList<Float>();
     //static double[][] instances = new double[10000][2]; //X y Y
-    int clusters = 10;//datos que se piden en el form
+    int clusters = 0;//datos que se piden en el form
     int K, ncolores; //puntos
     private int XNeighbor,YNeighbor;
     private ArrayList<Coordenadas> clases = new ArrayList<>(); //un arreglo donde guardaremos toda la info de las cordenadas, puntos
@@ -63,26 +63,50 @@ public class KNN {
         Random r = new Random();
         int Xaux = 0;
         int Yaux = 0;
+        int xatrac=0;//var donde se generara atractor x
+        int yatrac=0;//var donde se generara atractor y
         //tamaño de panel x y y
+        for(int i =0; i<getClusters();i++){
+            //nota hasta aqui no son centroides, son atractores
+            xatrac = r.nextInt(680);
+            yatrac = r.nextInt(545);
+            //ojo debe de ser la misma semilla, vas a regarla si pones diferente xd
+            //tambien pasamos la distancia para calcular la cercania con los centroide
+            centroides.add( new centroides(xatrac,yatrac)); //mandamos los valores de x y y a un arreglo
+            System.out.println("Centroides: "+centroides.get(i));
+        }
         for(int i = 0; i< getK(); i++){ //definimos tamaño de puntos, generamos cordenadas para cada punto.
             Xaux = r.nextInt(680);
             Yaux = r.nextInt(545);
+
             clases.add( new Coordenadas( Xaux, Yaux, -1, distancia(Xaux,Yaux)));
             //System.out.println("Clases Axel: "+ clases.get(i));
 
         }
-        for(int i =0; i<getClusters();i++){
-            int aux=r.nextInt(getK());
-            //ojo debe de ser la misma semilla, vas a regarla si pones diferente xd
-            centroides.add( new centroides(clases.get(aux).getX(),clases.get(aux).getY())); //mandamos los valores de x y y a un arreglo
-            System.out.println("Centroides: "+centroides.get(i));
-        }
+
     }
     //no se si lo necesite despues
-    public float distancia(int x, int y){
+   /* public float distancia(int x, int y){
 
-        float d;
-        return d =(float) Math.sqrt( Math.pow(getXNeighbor()-x,2)+ Math.pow(getYNeighbor()- y,2));
+        float d=0;
+        for(int i=0;i<getClusters();i++){
+            d=(float) Math.sqrt( Math.pow(x-getXNeighbor(),2)+ Math.pow(y-getYNeighbor(),2));
+
+        }
+        return d ;
+
+
+    }*/
+    public float[] distancia(int x, int y){
+
+        float d[]= new float[getClusters()];
+        for(int i=0;i<getClusters();i++){
+            setXNeighbor(centroides.get(i).getX());
+            setYNeighbor(centroides.get(i).getY());
+            d[i]=(float) Math.sqrt( Math.pow(x-getXNeighbor(),2)+ Math.pow(y-getYNeighbor(),2));
+
+        }
+        return d ;
 
 
     }

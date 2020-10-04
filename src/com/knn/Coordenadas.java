@@ -1,10 +1,12 @@
 package com.knn;
 
+import java.util.Arrays;
+
 public class Coordenadas {
     private int x,y,c;
-    private  float distance;
+    private  float distance[];
 
-    public Coordenadas(int x, int y, int c, float distance) { //constructor
+    public Coordenadas(int x, int y, int c, float[] distance) { //constructor
         this.x = x;
         this.y = y;
         this.c = c;
@@ -43,11 +45,11 @@ public class Coordenadas {
         this.distance = distance;
     }*/
 
-    public float getDistance() {
-        return distance ;
+    public float[] getDistance() {
+        return distance;
     }
 
-    public void setDistance(float distance) {
+    public void setDistance(float[] distance) {
         this.distance = distance;
     }
 
@@ -57,7 +59,7 @@ public class Coordenadas {
                 "x=" + x +
                 ", y=" + y +
                 ", c=" + c +
-                ", distance=" + distance +
+                ", distance=" + Arrays.toString(distance) +
                 '}';
     }
 }

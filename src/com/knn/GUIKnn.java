@@ -22,7 +22,7 @@ public class GUIKnn {
 
                 objectKNN.setK((int)spinner1.getValue());
                 //set Clases
-                objectKNN.setNcolores((int)spinner2.getValue());
+                objectKNN.setClusters((int)spinner2.getValue());
                 //Agregamos N pares ordenados con un array de objetos.
                 objectKNN.GenerarClusters();
                 dibujarClases();
@@ -41,10 +41,10 @@ public class GUIKnn {
     private void dibujarClases(){
 //        objectKNN.setXNeighbor(Integer.parseInt(jTextXK.getText()));
 //        objectKNN.setYNeighbor(Integer.parseInt(jTextYK.getText()));
-        objectKNN.setXNeighbor(4);
-        objectKNN.setYNeighbor(20);
+        //objectKNN.setXNeighbor(4);
+        //objectKNN.setYNeighbor(20);
         ArrayList<Float> impresion = new ArrayList<>();
-        int[] frecuencias = new int[objectKNN.getNcolores()];
+        int[] frecuencias = new int[objectKNN.getClusters()];
         for (int i = 0; i < objectKNN.getNcolores(); i++){
             frecuencias[i] = 0;
         }
@@ -54,7 +54,7 @@ public class GUIKnn {
 
         //Random rand = new Random();
         //int rango = 0;
-        int separador = (int) Math.floorDiv(680,objectKNN.getNcolores());
+        int separador = (int) Math.floorDiv(680,objectKNN.getClusters());
         //System.out.println("INIT SEPARATOOOR: "+separador+" Clases: "+ objectKNN.getNcolores());
         int pasos = separador;
         int count = 0;

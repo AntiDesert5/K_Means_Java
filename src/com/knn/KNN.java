@@ -100,12 +100,33 @@ public class KNN {
     public float[] distancia(int x, int y){
 
         float d[]= new float[getClusters()];
+        float aux=0;
+        float aux2=10000;
+        int cont=0;
+        int var=0;
         for(int i=0;i<getClusters();i++){
             setXNeighbor(centroides.get(i).getX());
             setYNeighbor(centroides.get(i).getY());
-            d[i]=(float) Math.sqrt( Math.pow(x-getXNeighbor(),2)+ Math.pow(y-getYNeighbor(),2));
+            aux=(float) Math.sqrt( Math.pow(x-getXNeighbor(),2)+ Math.pow(y-getYNeighbor(),2));
 
+            if(aux<aux2) { //si el primero es menor que el segundo
+                //segundo a 0
+                d[i] = aux;
+                aux2=aux;
+                cont++;
+
+                if(cont==2){
+                    cont=1;
+                    d[var]=0;
+                }
+                var=i;
+            }
+          else{//si el priemro es mayor que el segundo
+                //a sero el 1
+            d[i]=0;
+            }
         }
+
         return d ;
 
 

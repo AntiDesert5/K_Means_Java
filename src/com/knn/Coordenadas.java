@@ -53,7 +53,7 @@ public class Coordenadas {
         this.distance = distance;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Coordenadas{" +
                 "x=" + x +
@@ -61,5 +61,5 @@ public class Coordenadas {
                 ", c=" + c +
                 ", distance=" + Arrays.toString(distance) +
                 '}';
-    }
+    }*/
 }

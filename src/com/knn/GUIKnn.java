@@ -14,6 +14,7 @@ public class GUIKnn {
     private JSpinner spinner2;
     private JPanel panelmain;
     private JPanel jpanel1;
+    private JButton calcularCentroidesButton;
     KNN objectKNN = new KNN();
     public GUIKnn() {
         correrButton.addActionListener(new ActionListener() {

@@ -26,6 +26,8 @@ public class GUIKnn {
                 objectKNN.setClusters((int)spinner2.getValue());
                 //Agregamos N pares ordenados con un array de objetos.
                 objectKNN.GenerarClusters();
+                objectKNN.asignarClases();
+                objectKNN.calCentroides();
                 dibujarClases();
             }
         });

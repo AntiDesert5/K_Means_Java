@@ -1,18 +1,12 @@
 package com.knn;
 
-import java.util.Arrays;
-
-public class Coordenadas {
+public class frecuenciasClusters {
     private int x,y,c;
-    //private  float distance[];
-    public Coordenadas(){
-        this.c =-1;
-    }
-    public Coordenadas(int x, int y) { //constructor
+
+    public frecuenciasClusters(int x, int y, int c) {
         this.x = x;
         this.y = y;
-        this.c = -1;
-      //  this.distance = distance;
+        this.c = c;
     }
 
     public int getX() {
@@ -39,17 +33,9 @@ public class Coordenadas {
         this.c = c;
     }
 
-    /*public float getDistance() {
-        return distance ;
-    }
-
-    public void setDistance(float distance) {
-        this.distance = distance;
-    }*/
-
     @Override
     public String toString() {
-        return "Coordenadas{" +
+        return "frecuenciasClusters{" +
                 "x=" + x +
                 ", y=" + y +
                 ", c=" + c +

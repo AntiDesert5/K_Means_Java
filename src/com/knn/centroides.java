@@ -1,7 +1,7 @@
 package com.knn;
 
 public class centroides {
-    private int x,y;
+    private int x,y, k;
 
 
 
@@ -21,10 +21,22 @@ public class centroides {
         this.y = y;
     }
 
+    public int getK() {
+        return k;
+    }
+
+    public void setK(int k) {
+        this.k = k;
+    }
+
     public centroides(int x, int y) {
         this.x = x;
         this.y = y;
+        this.k=-1;
 
+    }
+    public centroides(){
+        this.k =-1;
     }
 
     @Override
@@ -32,6 +44,7 @@ public class centroides {
         return "centroides{" +
                 "x=" + x +
                 ", y=" + y +
+                ", k=" + k +
                 '}';
     }
 }

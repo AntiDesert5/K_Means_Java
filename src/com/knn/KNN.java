@@ -6,36 +6,31 @@ import java.util.Random;
 public class KNN {
     ArrayList<Float> instances = new ArrayList<Float>();
     //static double[][] instances = new double[10000][2]; //X y Y
-    int clusters = 0;//datos que se piden en el form
+    int clusters ;//datos que se piden en el form
     int K, ncolores; //puntos
-    private int XNeighbor, YNeighbor;
+    private int XNeighbor,YNeighbor;
     private ArrayList<Coordenadas> clases = new ArrayList<>(); //un arreglo donde guardaremos toda la info de las cordenadas, puntos
-    private ArrayList<centroides> centroides = new ArrayList<>();
+    private  ArrayList<Coordenadas> centroides= new ArrayList<>();
 
+    float ArrC[]=new float[getK()];
     public int getNcolores() {
         return ncolores;
     }
-
     public void setNcolores(int ncolores) {
         this.ncolores = ncolores;
     }
-
     public int getClusters() {
         return clusters;
     }
-
     public void setClusters(int clusters) {
         this.clusters = clusters;
     }
-
     public int getXNeighbor() {
         return XNeighbor;
     }
-
     public void setXNeighbor(int XNeighbor) {
         this.XNeighbor = XNeighbor;
     }
-
     public int getYNeighbor() {
         return YNeighbor;
     }
@@ -60,34 +55,31 @@ public class KNN {
         this.clases = clases;
     }
 
-    public void GenerarClusters() {
+    public void GenerarClusters(){
         Random r = new Random();
         int Xaux = 0;
         int Yaux = 0;
-        int xatrac = 0;//var donde se generara atractor x
-        int yatrac = 0;//var donde se generara atractor y
+        int xatrac=0;//var donde se generara atractor x
+        int yatrac=0;//var donde se generara atractor y
         //tamaño de panel x y y
-        for (int i = 0; i < getClusters(); i++) {
+        for(int i =0; i<getClusters();i++){
             //nota hasta aqui no son centroides, son atractores
             xatrac = r.nextInt(680);
             yatrac = r.nextInt(545);
             //ojo debe de ser la misma semilla, vas a regarla si pones diferente xd
             //tambien pasamos la distancia para calcular la cercania con los centroide
-            centroides.add(new centroides(xatrac, yatrac)); //mandamos los valores de x y y a un arreglo
-            System.out.println("Centroides: " + centroides.get(i));
+            centroides.add( new Coordenadas(xatrac,yatrac)); //mandamos los valores de x y y a un arreglo
+            System.out.println("Centroides: "+centroides.get(i));
         }
-        for (int i = 0; i < getK(); i++) { //definimos tamaño de puntos, generamos cordenadas para cada punto.
+        for(int i = 0; i< getK(); i++){ //definimos tamaño de puntos, generamos cordenadas para cada punto.
             Xaux = r.nextInt(680);
             Yaux = r.nextInt(545);
-
-            //clases.add(new Coordenadas(Xaux, Yaux, -1, distancia(Xaux, Yaux, i)));
+            //ArrC[i]=distancia(Xaux,Yaux);
+            clases.add( new Coordenadas( Xaux, Yaux));//meter distancias en otro arreglo
             //System.out.println("Clases Axel: "+ clases.get(i));
-            distancia(Xaux, Yaux, i);
-
         }
 
     }
-
     //no se si lo necesite despues
    /* public float distancia(int x, int y){
 
@@ -100,50 +92,84 @@ public class KNN {
 
 
     }*/
-    public float[][] distancia(int x, int y, int b) {
-        float ar[][] = new float[getK()][getClusters()];
-        float d[] = new float[getClusters()];
-        float aux = 0;
-        float aux2 = 10000;
-        int cont = 0;
-        int var = 0;
+    public void asignarClases(){
+        for(Coordenadas act : clases){
+            distMenor(act);
+        }
+    }
+    public void distMenor( Coordenadas act){
+        float menor = 100000;
+        for( int i=0; i<centroides.size();i++){
+            float d = distancia(act , centroides.get(i) );
+            if(d<menor){
+                menor = d;
+                act.setC(i+1); //indice de la menor distancia
+            }
+            //System.out.println("\nDistancia : "+ d);
+        }
+        //System.out.println("\nClase "+ act.getK());
+    }
 
-        for (int i = 0; i < getClusters(); i++) {
+    public float distancia(Coordenadas p1, Coordenadas p2){
+        float d =(float) Math.sqrt( Math.pow(p2.getX()-p1.getX(),2)+ Math.pow(p2.getY()- p1.getY(),2));
+        return d;
+    }
+
+    /*public float distancia(int x, int y){
+
+        float d[]= new float[getClusters()];
+        float a=0;
+        float aux=0;
+        float aux2=10000;
+        int cont=0;
+        int var=0;
+        for(int i=0;i<getClusters();i++){
             setXNeighbor(centroides.get(i).getX());
             setYNeighbor(centroides.get(i).getY());
-            aux = (float) Math.sqrt(Math.pow(x - getXNeighbor(), 2) + Math.pow(y - getYNeighbor(), 2));
-            //aux=(float) Math.sqrt( Math.pow(x-getXNeighbor(),2)+ Math.pow(y-getYNeighbor(),2));
+            aux=(float) Math.sqrt( Math.pow(x-getXNeighbor(),2)+ Math.pow(y-getYNeighbor(),2));
 
-            if (aux < aux2) { //si el primero es menor que el segundo
+            if(aux<aux2) { //si el primero es menor que el segundo
                 //segundo a 0
-                ar[i][b] = aux;
-                aux2 = aux;
+                //d[i] = aux;
+                a=aux;
+              aux2=aux;
                 cont++;
 
-                if (cont == 2) {
-                    cont = 1;
-                    ar[i][b] = 0;
+                if(cont==2){
+                    cont=1;
+                    d[var]=0;
                 }
-                var = i;
-            } else {//si el priemro es mayor que el segundo
+                var=i;
+            }
+          else{//si el priemro es mayor que el segundo
                 //a sero el 1
-                ar[i][b] = 0;
-            }
-        }
-        promedio(ar);
-        return ar;
-
-
-    }
-
-    public void promedio(float arr[][]) {
-        for (int i=0;i<getClusters();i++){
-            for (int k=0;k<getK();k++){
-                System.out.println("promedio: " + arr[k][i]);
+            d[i]=0;
+            a=0;
+            return a;
             }
         }
 
+        return a ;
 
+
+    }*/
+    public void calCentroides(){
+        int[] objXClase = new int[clusters]; //guarda número
+        int [][] coord = new int [clusters][2]; //(X,Y)
+
+        System.out.println("objClase: "+objXClase);
+        for(Coordenadas act: clases){
+            int clase = act.getC()-1;
+            objXClase[clase]++;
+            coord[clase][0]+=act.getX();
+            coord[clase][1]+=act.getY();
+
+        }
+        int clase = 0;
+        for(Coordenadas c: centroides){
+            c.setX(coord[clase][0]/objXClase[clase]);
+            c.setY(coord[clase][1]/objXClase[clase]);
+            clase++;
+        }
     }
-
 }
